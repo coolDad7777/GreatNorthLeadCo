@@ -38,3 +38,9 @@ Notes
 
 .env.local is ignored by git.
 If you change the PocketBase URL, update .env.local and restart the dev server.
+
+## Deploying to AWS
+
+- **Backend:** run PocketBase on a Lightsail instance behind HTTPS (e.g. Caddy), keep `pb_migrations/` alongside the binary so they apply on startup, and enable automatic snapshots. Do not expose the admin UI publicly without restricting access.
+- **Frontend:** connect the repo to AWS Amplify Hosting. Build: `npm ci && npm run build`, output directory `dist`. Set `VITE_POCKETBASE_URL` to the PocketBase HTTPS URL.
+- Add an SPA rewrite in Amplify: `/<*>` to `/index.html` (200).
